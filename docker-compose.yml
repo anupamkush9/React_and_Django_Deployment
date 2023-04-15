@@ -1,0 +1,20 @@
+version: "3.8"
+
+services:
+  backend:
+    build: ./django_notes
+    ports:
+      - "8000:8000"
+    volumes: 
+      - ./django_notes:/backend_api
+    extra_hosts:
+      - "host.docker.internal:172.17.0.1"  
+
+  frontend:
+    build: ./react_container_app
+    ports: 
+      - "3000:3000"
+    volumes: 
+      - ./react_container_app/src:/app/src
+    depends_on: 
+      - backend
